@@ -76,4 +76,3 @@ pip install -r requirements.txt
 PYTHONPATH=. python -c "exec(open('kaggle/notebook.py').read())"
 ```
 
-The BM25 and fusion code in `src/` is self-contained if you want to use it in another project.
