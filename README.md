@@ -67,9 +67,3 @@ pip install -r requirements.txt
 PYTHONPATH=. python -c "exec(open('kaggle/notebook.py').read())"
 ```
 
-## Resume bullets
-
-- Implemented BM25 retrieval from scratch (inverted index, IDF smoothing, TF saturation) and combined it with FAISS dense retrieval via Reciprocal Rank Fusion, evaluating on 5K Natural Questions examples across 5 seeds.
-- Ran a three-way retrieval ablation (Dense vs BM25 vs Hybrid), showing dense retrieval dominates at 98.7% Recall@5 on NQ while BM25-only achieves 89.6% -- demonstrating that hybrid fusion does not universally improve over strong single retrievers.
-- Conducted a BM25 parameter sensitivity sweep over k1 and b, proving that RRF fusion absorbs hyperparameter variance: BM25 R@5 swings 3.3pp across configs while Hybrid R@5 stays within 0.4pp.
-
