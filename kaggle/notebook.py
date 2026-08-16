@@ -15,7 +15,7 @@
 # %% [markdown]
 # ## 1. Install Dependencies
 # %%
-!pip install -q sentence-transformers datasets faiss-cpu
+# pip install -q sentence-transformers datasets faiss-cpu
 
 # %% [markdown]
 # ## 2. Imports and Setup
