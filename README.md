@@ -1,4 +1,4 @@
-# Hybrid RAG from Scratch
+# Hybrid Dense-Sparse Retrieval for Open-Domain Question Answering
 
 I built a retrieval system that combines dense search (FAISS) with sparse search (BM25 written from scratch) using Reciprocal Rank Fusion. The goal was to understand whether hybrid retrieval actually helps, and to implement BM25 manually so I could explain every piece of it.
 
