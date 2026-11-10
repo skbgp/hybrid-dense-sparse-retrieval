@@ -10,8 +10,9 @@ Contains the full BM25 class with:
 
 import math
 import re
-import numpy as np
 from collections import Counter, defaultdict
+
+import numpy as np
 
 
 class BM25:
@@ -22,12 +23,14 @@ class BM25:
             k1: term frequency saturation parameter (1.2-2.0 typical).
             b: length normalisation parameter (0 = no norm, 1 = full norm).
         """
+        if not math.isfinite(k1) or k1 < 0 or not 0 <= b <= 1:
+            raise ValueError("BM25 requires a finite k1 >= 0 and b between 0 and 1.")
         self.k1 = k1
         self.b = b
         self.corpus_size = len(corpus)
         self.tokenized_corpus = [self._tokenize(doc) for doc in corpus]
         doc_lengths = [len(doc) for doc in self.tokenized_corpus]
-        self.avgdl = sum(doc_lengths) / len(doc_lengths)
+        self.avgdl = sum(doc_lengths) / self.corpus_size if self.corpus_size else 0.0
         self.doc_lengths = doc_lengths
 
         # Inverted index: term -> [(doc_id, tf), ...]
@@ -67,6 +70,10 @@ class BM25:
         return scores
 
     def retrieve(self, query, k=10):
+        if k < 0:
+            raise ValueError("k must be non-negative.")
         scores = self.score(query)
         top_indices = np.argsort(scores)[::-1][:k]
+        # Only passages with matching terms should contribute a rank to RRF.
+        top_indices = top_indices[scores[top_indices] > 0]
         return list(top_indices), list(scores[top_indices])
